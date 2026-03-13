@@ -19,8 +19,8 @@ int main(void)
 void f_reverse(char* string)
 {
 	unsigned int 	len	= f_len(string);
-	unsigned int	i = 0;
-	unsigned int	j = len - 1;
+	unsigned int	i	= 0;
+	unsigned int	j	= len - 1;
 	char			tmp;
 
 	while(i < j)
