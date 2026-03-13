@@ -3,19 +3,6 @@ void			f_reverse(char* string);
 void			f_print(char* string);
 unsigned int	f_len(char* string);
 
-int main(void)
-{
-	char string [] = "test.qw";
-
-	f_print(string);
-
-	f_reverse(string);
-
-	f_print(string);
-
-	return 0;
-}
-
 void f_reverse(char* string)
 {
 	unsigned int 	len	= f_len(string);
@@ -69,4 +56,17 @@ unsigned int f_len(char* string)
 	}
 
 	return len;
+}
+
+int main(void)
+{
+	char string [] = "test.qw";
+
+	f_print(string);
+
+	f_reverse(string);
+
+	f_print(string);
+
+	return 0;
 }
