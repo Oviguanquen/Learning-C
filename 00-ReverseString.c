@@ -12,12 +12,12 @@ void f_reverse(char* string)
 
 	/* OLD VERSION
 	char			auxString[len];
-	for (i = 0; i < len; i++)
+	for (i = 0; i < len; ++i)
 	{
 		auxString[i] = string[i];
 	}
 
-	for (i = 0; i < len; i++)
+	for (i = 0; i < len; ++i)
 	{
 		string[i] = auxString[len - 1 - i];
 	}

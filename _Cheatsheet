@@ -1,7 +1,24 @@
+Pre Processor:
 #include <library.h>    - Search in /usr/include
 #include "library.h"    - Search in current directory or in /usr/include
 
 #define name value  - Define a constant with a value
+
+#ifdef name     - If is defined
+#ifndef name    - If is not defined
+#else
+#endif          - Close conditions
+
+
+Variables:
+type name; or type name = value;
+Tip: Don't use extern variables
+extern type name    - Global variable(Don't use)
+register type name  - Doesn't have a memory address
+static type name    - Permanent storage
+
+Conversion:
+(type)name
 
 Comments:
 // One line
@@ -9,22 +26,40 @@ Comments:
     Multiple lines
 */
 
-Conditions:
+Conditions(break exit the switch case):
 if(condition){...}
 else{...}
+(condition) ? iftrue : iffalse
 
-Loops:
+switch(variable){
+    case x:
+        ...
+        break;
+    ...
+    default:
+        ...
+        break;
+}
+
+Loops(break exit the loop, continue skips to next loop iteration):
 for(init; condition; step){...}
 while(condition){...}
 do{...}while(condition);
 
+Recursion:
+BIG POWER BIG RESPONSABILITY
+
+Goto and labels:
+DON'T USE THEM
+
 Operators:
 +       - Sum
-++      - Increment by 1
+++      - Increment by 1        (n++, first n last n += 1)(++n, first n+=1 last n)
 *       - Mult
 -       - Substr
---      - Decrement by 1
+--      - Decrement by 1        (n--, first n last n -= 1)(--n, first n-=1 last n)
 /       - Div
+%       - Modulus
 =       - Assign
 ==      - Equal
 !=      - Not equal
@@ -32,6 +67,14 @@ Operators:
 > >=    - Greater than or equal
 ||      - OR
 &&      - AND
+
+Bitwise Operators
+&       - AND
+|       - OR
+^       - XOR
+<<      - Left shift
+>>      - Right shift
+~       - Complement
 
 Characters:
 '\0'    - Null
@@ -41,12 +84,37 @@ Strings:
 char[]
 Null indicates end of string
 
-Functions (value or address)
+Functions (value or reference)
 - Prototype:
 outputType name(inputType);
 
 - Definition:
 outputType name(inputType){...}
+
+Structures:
+struct name
+{
+    ...
+}
+Optimized version for memory padding
+struct __attribute__((packed)) name
+{
+    higherBits
+    ...
+    lowerBits
+}
+typedef struct __attribute((packed))
+{
+    higherBits
+    ...
+    lowerBits
+}name
+
+Memory:
+- Stack: Stores automatic variables()
+
+- Heap:
+
 
 -----------------------------------
 Libraries(check with man)
@@ -57,4 +125,3 @@ Libraries(check with man)
     - printf:   print sequence of characters
     - getchar:  gets input character
     - putchar:  print one character
-    - getline:  gets input characters array
