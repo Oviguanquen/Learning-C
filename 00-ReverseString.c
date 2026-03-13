@@ -23,6 +23,19 @@ void f_reverse(char* string)
 	unsigned int	j	= len - 1;
 	char			tmp;
 
+	/* OLD VERSION
+	char			auxString[len];
+	for (i = 0; i < len; i++)
+	{
+		auxString[i] = string[i];
+	}
+
+	for (i = 0; i < len; i++)
+	{
+		string[i] = auxString[len - 1 - i];
+	}
+	*/
+
 	while(i < j)
 	{
 		tmp			= string[i];
