@@ -1,0 +1,60 @@
+#include <library.h>    - Search in /usr/include
+#include "library.h"    - Search in current directory or in /usr/include
+
+#define name value  - Define a constant with a value
+
+Comments:
+// One line
+/*
+    Multiple lines
+*/
+
+Conditions:
+if(condition){...}
+else{...}
+
+Loops:
+for(init; condition; step){...}
+while(condition){...}
+do{...}while(condition);
+
+Operators:
++       - Sum
+++      - Increment by 1
+*       - Mult
+-       - Substr
+--      - Decrement by 1
+/       - Div
+=       - Assign
+==      - Equal
+!=      - Not equal
+< <=    - Lower than or equal
+> >=    - Greater than or equal
+||      - OR
+&&      - AND
+
+Characters:
+'\0'    - Null
+Uses ASCII
+
+Strings:
+char[]
+Null indicates end of string
+
+Functions (value or address)
+- Prototype:
+outputType name(inputType);
+
+- Definition:
+outputType name(inputType){...}
+
+-----------------------------------
+Libraries(check with man)
+
+    stdio - Standard Input Output
+    + EOF   End of File
+
+    - printf:   print sequence of characters
+    - getchar:  gets input character
+    - putchar:  print one character
+    - getline:  gets input characters array
