@@ -1,0 +1,100 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ MAN PAGES CHEATSHEET
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Updated Fonts:
+    man7.org            Man entries
+    kernel.org/doc      Kernel documentation
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Sections:
+    1       Commands (ls, gcc, grep...)
+    2       Syscalls (open, read, write, fork...)
+    3       Libc functions (printf, malloc, strlen...)
+    3type   Data types (sockaddr_un, timeval...)
+    4       Device files (/dev/ttyUSB0, /dev/null...)
+    5       File formats (/etc/passwd, Makefile...)
+    6       Games
+    7       Overview and concepts (socket, ip, tcp, unix...)
+    0p      POSIX headers (sys/un.h, termios.h...)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Basic usage:
+    man name            Search in all sections
+    man 2 open          Section 2 — syscall open
+    man 3 printf        Section 3 — libc printf
+    man 7 socket        Section 7 — socket overview
+
+Search:
+    man -k keyword      Search by keyword in all sections
+    man -k serial       Find everything related to serial
+    man -k socket       Find everything related to sockets
+    man -k "file descriptor"
+
+Navigation inside man:
+    q                   Quit
+    space / f           Next page
+    b                   Previous page
+    /word               Search forward
+    ?word               Search backward
+    n                   Next match
+    N                   Previous match
+    g                   Go to beginning
+    G                   Go to end
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Man page structure:
+    NAME        Function name and one-line description
+    SYNOPSIS    How to call it — signature and includes needed
+    DESCRIPTION Full explanation
+    RETURN VALUE What it returns on success and on error
+    ERRORS      errno values and their meaning
+    NOTES       Important details and edge cases
+    EXAMPLES    Code examples
+    SEE ALSO    Related functions
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Workflow — you don't know what function to use:
+    1. man -k keyword       Find candidates
+    2. man 7 topic          Read overview of the topic
+    3. man 2/3 function     Read specific function
+    4. Check SYNOPSIS       Know which header to include
+    5. Check RETURN VALUE   Know how to detect errors
+    6. Check SEE ALSO       Discover related functions
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Most useful overviews (section 7):
+    man 7 unix          Unix domain sockets
+    man 7 socket        Sockets in general
+    man 7 ip            TCP/IP
+    man 7 tcp           TCP protocol
+    man 7 signal        Signals
+    man 7 pipe          Pipes
+    man 7 epoll         I/O multiplexing
+    man 7 pthreads      POSIX threads
+    man 7 time          Time and clocks
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Most used:
+    man 2 open
+    man 2 read
+    man 2 write
+    man 2 close
+    man 2 socket
+    man 2 bind
+    man 2 listen
+    man 2 accept
+    man 2 connect
+    man 2 fcntl
+    man 3 printf
+    man 3 perror
+    man 3 errno
+    man 3 memcpy
+    man 3 memset
+    man 3type sockaddr_un

@@ -1,0 +1,240 @@
+╔══════════════════════════════════════════════════════════════════╗
+║                     C LANGUAGE REFERENCE                        ║
+║                  Everything is memory                           ║
+║                  Every variable is an address                   ║
+║                  Every function is an address                   ║
+║                  Arrays are pointers                            ║
+║                  Strings are arrays                             ║
+╚══════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 1. PREPROCESSOR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Includes:
+    #include <library.h>    Search in /usr/include
+    #include "library.h"    Search in current directory, then /usr/include
+
+Defines:
+    #define NAME value          Constant
+    #define NAME(x) condition   Macro function
+
+Header guard:
+    #pragma once                Modern — use this
+    #ifndef NAME                Classic alternative
+    #define NAME
+    #endif
+
+Conditionals:
+    #ifdef  NAME    If defined
+    #ifndef NAME    If not defined
+    #else
+    #endif
+
+Built-in macros:
+    __FILE__        Current file name
+    __LINE__        Current line number
+    __func__        Current function name
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 2. TYPES AND VARIABLES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Declaration:
+    type name;
+    type name = value;
+
+Qualifiers:
+    const    type name      Non-changeable
+    volatile type name      Always read from memory (hardware/signals)
+    static   type name      Permanent storage (file or function scope)
+    extern   type name      Global — DON'T USE
+    register type name      No memory address hint
+
+Size:
+    sizeof(type)
+    sizeof(variable)
+
+Conversion:
+    (type)name
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 3. OPERATORS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Arithmetic:
+    +   -   *   /   %
+    ++  --
+    n++     read n, then n+=1
+    ++n     n+=1, then read n
+
+Assignment:
+    =   +=  -=  *=  /=  %=
+
+Comparison:
+    ==  !=  <   <=  >   >=
+
+Logical:
+    &&  ||  !
+
+Bitwise:
+    &   AND
+    |   OR
+    ^   XOR
+    ~   Complement
+    <<  Left shift
+    >>  Right shift
+    &=  |=  ^=  <<=  >>=
+
+Ternary:
+    (condition) ? if_true : if_false
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 4. CONTROL FLOW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Conditionals:
+    if (condition) {...}
+    else if (condition) {...}
+    else {...}
+
+Switch (break exits, default is fallback):
+    switch (variable) {
+        case x:  ...  break;
+        default: ...  break;
+    }
+
+Loops (break exits, continue skips to next iteration):
+    for (init; condition; step) {...}
+    while (condition) {...}
+    do {...} while (condition);
+
+Recursion:
+    BIG POWER — BIG RESPONSIBILITY
+
+Goto:
+    DON'T USE
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 5. DATA STRUCTURES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Characters:
+    char c = 'A';
+    '\0'    Null terminator
+    Uses ASCII table
+
+Strings:
+    char name[];
+    '\0' indicates end of string
+
+Arrays:
+    type name[SIZE];
+    type name[] = {1, 2, 3};        Size deduced
+    type name[ROWS][COLS];          Multidimensional
+
+Struct (order fields higher→lower for minimum padding):
+    typedef struct __attribute__((packed)) {
+        uint32_t  big;
+        uint16_t  medium;
+        uint8_t   small;
+    } Name;
+
+Enum (use instead of magic numbers):
+    typedef enum {
+        KEYWORD = value,
+        ...
+    } Name;
+
+Union (all fields share the same memory):
+    typedef union {
+        uint16_t value;
+        uint8_t  bytes[2];
+    } Name;
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 6. POINTERS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    type *name = &var;
+    *ptr            Value at address
+    &var            Address of variable
+    void *ptr       Generic pointer — no type
+
+Arithmetic:
+    ptr + n         Forward n elements
+    ptr - n         Backward n elements
+    ptr++           Next element
+    ptr--           Previous element
+    arr[i] == *(arr + i)
+
+Const variants:
+    const type *ptr         Can't modify value, can move pointer
+    type * const ptr        Can modify value, can't move pointer
+    const type * const ptr  Can't modify anything
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 7. FUNCTIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    Prototype:   returnType name(paramType);
+    Definition:  returnType name(paramType) {...}
+
+    static inline returnType name(paramType) {...}
+        - Inline: copies code instead of calling (small functions only)
+        - Static: only visible in this file
+
+    Variadic (stdarg.h):
+        returnType name(int n, ...) {...}
+        Accepts variable number of arguments
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 8. MEMORY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    Stack   → local variables, known size at compile time
+              default 8MB — modifiable:
+              struct rlimit rl;
+              rl.rlim_cur = 64 * 1024 * 1024;
+              rl.rlim_max = 64 * 1024 * 1024;
+              setrlimit(RLIMIT_STACK, &rl);
+
+    Static  → global and static variables
+              assigned at compilation, live forever
+
+    Heap    → dynamic, unknown size at compile time
+              malloc / free — AVOID until strictly necessary
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 9. COMMENTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    // Single line
+    /* Multiple lines */
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 10. BEST PRACTICES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    - No recursion
+    - Initialize pointers to NULL
+    - Always check array limits
+    - Avoid heap until strictly necessary
+    - Never write to read-only memory
+    - Never return pointers to local variables
+    - Use const when data should not change
+    - Use static for everything that stays in the file
+    - Use volatile only for hardware registers and signal handlers
+    - Use enums instead of magic numbers
+    - Use structs to group related data
+    - One function — one responsibility
+    - Search "linux c" or "posix c" for libraries
