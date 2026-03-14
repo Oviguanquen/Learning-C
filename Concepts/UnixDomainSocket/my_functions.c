@@ -6,9 +6,15 @@ void f_print(char* input)
 	write(STDOUT_FILENO, "\n", 1);
 }
 
+void f_printError(char* input)
+{
+	write(STDERR_FILENO, input, f_strLen(input));
+	write(STDERR_FILENO, "\n", 1);
+}
+
 int f_strCpy(char* input, char* output, unsigned int outputSize)
 {
-	if (f_strLen(input) >= outputSize)
+	if (f_strLen(input) > outputSize)
 		return -1;
 
 	unsigned int i;

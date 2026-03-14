@@ -1,10 +1,10 @@
-# 1. Search for the concept
+# Search for the concept
 
 ```sh
 man -k "unix domain socket"
 ```
 
-These are the important results:
+These are the important results for the struct:
 
 - sockaddr_un (3type)
 - sys_un.h (0p)
@@ -23,3 +23,8 @@ unix (7)             - sockets for local interprocess communication
 man 7 unix
 ```
 
+# Search how to make it work
+
+```sh
+man 0p sys_socket.h
+```

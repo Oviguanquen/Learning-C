@@ -6,6 +6,10 @@
 */
 void			f_print(char* input);
 
+/*	Print a char[] to STDERR
+*/
+void			f_printError(char* input);
+
 /*	Copy input char[] to output char[]
 	Return 0 on success, -1 if input is larger than output
 	outputSize must inclue '\0'
