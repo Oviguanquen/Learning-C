@@ -1,10 +1,10 @@
 ╔══════════════════════════════════════════════════════════════════╗
-║                     C LANGUAGE REFERENCE                        ║
-║                  Everything is memory                           ║
-║                  Every variable is an address                   ║
-║                  Every function is an address                   ║
-║                  Arrays are pointers                            ║
-║                  Strings are arrays                             ║
+║                     C LANGUAGE REFERENCE                         ║
+║                  Everything is memory                            ║
+║                  Every variable is an address                    ║
+║                  Every function is an address                    ║
+║                  Arrays are pointers                             ║
+║                  Strings are arrays                              ║
 ╚══════════════════════════════════════════════════════════════════╝
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
