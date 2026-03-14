@@ -21,7 +21,7 @@
 */
 #include <sys/stat.h>
 
-/*	Used for system calls: write, read...
+/*	Used for system calls: write, read... and usleep(us)
 */
 #include <unistd.h>
 
