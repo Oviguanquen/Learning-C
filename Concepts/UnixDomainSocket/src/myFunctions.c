@@ -1,4 +1,4 @@
-#include "my_functions.h"
+#include "../include/myFunctions.h"
 
 void f_print(char* input)
 {

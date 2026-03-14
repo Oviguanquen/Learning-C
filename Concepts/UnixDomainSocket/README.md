@@ -22,9 +22,3 @@ unix (7)             - sockets for local interprocess communication
 ```sh
 man 7 unix
 ```
-
-# Search how to make it work
-
-```sh
-man 0p sys_socket.h
-```
