@@ -1,5 +1,4 @@
 #include "../include/FHL-LD19.h"
-#include <unistd.h>
 
 int	f_connectLidar(void)
 {
@@ -127,34 +126,4 @@ int f_validateData(LiDARFrameTypeDef* frame)
 		return -1;
 
 	return 0;
-}
-
-void f_printPoints(LiDARFrameTypeDef *frame)
-{
-	float		startAngle;
-	float		endAngle;
-	float		deltaAngle;
-	float		angle;
-	int			i;
-	uint16_t	distance;
-	uint8_t		intensity;
-
-	startAngle	= frame->startAngle / 100.0f;
-	endAngle	= frame->endAngle / 100.0f;
-
-	if (endAngle < startAngle)
-		endAngle = endAngle + 360.0f;
-
-	deltaAngle	= endAngle - startAngle;
-
-	for (i = 0; i < POINT_PER_PACK; i++)
-	{
-		angle	= startAngle + (deltaAngle * i) / (POINT_PER_PACK - 1);
-
-		if (angle >= 360.0f)
-			angle = angle - 360.0f;
-
-		printf("Angle: %6.2fº\tDistance: %5dmm\tIntensity: %3d\n",
-				angle, frame->point[i].distance, frame->point[i].intensity);
-	}
 }

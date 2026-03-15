@@ -15,7 +15,7 @@ int f_createUDS(void)
 
 	/* Create socket FileDescriptor
 	*/
-	socketFileDescriptor = socket(AF_UNIX, SOCK_STREAM, 0);
+	socketFileDescriptor = socket(AF_UNIX, SOCK_SEQPACKET, 0);
 
 	if (socketFileDescriptor == -1)
 	{

@@ -1,21 +1,87 @@
 #pragma once
 
-#include <termios.h>
-#include <fcntl.h>
-#include <stdint.h>
-#include <termios.h>
-#include <unistd.h>
-#include <stdio.h>
+/*************************************/
+			/* Libraries */
+/*************************************/
+/*	Used for:
+	Constants:
+	- O_RDWR	Open for Reading and Writing
+	- O_NOCTTY	Don't take control of the main terminal
 
+	Functions:
+	- open()	Creates a File Descriptor from a file		
+*/
+#include <fcntl.h>
+
+/*	Used for:
+	Types:
+	- uint16_t	Unsigned Integer with 16 bits
+	- uint8_t	Unsigned Integer with 8 bits
+*/
+#include <stdint.h>
+
+/*	Used for:
+	Constants:
+	- VMIN				Minimun characters to read
+	- VTIME				Timeout to read
+	- B230400			Baudrate
+	- TCSANOW			Apply changes immediately
+	Structure:
+	- termios			Terminal structure
+	Functions:
+	- tcgetattr()		Get the parameter of the terminal
+	- cfmakeraw()		Set parameters to get raw Data
+	- cfsetispeed()		Set input speed
+	- cfsetospeed()		Set output speed
+	- tcsetattr()		Update parameters 
+*/
+#include <termios.h>
+
+/*	Used for:
+	Function:
+	- read()			Read from the file associated to the File Descriptor
+*/
+#include <unistd.h>
+
+/*	Used for:
+	Function:
+	- f_printError()	Print to STDERR
+*/
 #include "myFunctions.h"
 
+/*************************************/
+	/* Non Configurable parameters */
+/*************************************/
+/*	Points that are received per Package
+*/
 #define POINT_PER_PACK  12
+
+/*	Header value
+*/
 #define HEADER          0x54
+
+/*	Packet properties
+*/
 #define VER_LEN         0x2C
+
+/*************************************/
+	/* Configurable parameters */
+/*************************************/
+/*	Port in which is connected
+*/
 #define DEVICE			"/dev/ttyUSB0"
+
+/*	Minimum difference angle between points
+*/
 #define MIN_DELTA_ANGLE	0.5f
+
+/*	Maximum difference angle between points
+*/
 #define MAX_DELTA_ANGLE	12.0f
 
+/*************************************/
+		/* Structures */
+/*************************************/
 typedef struct __attribute__((packed))
 {
 	uint16_t	distance;	/*mm*/
@@ -54,16 +120,34 @@ static const uint8_t CrcTable[256] =
     0xf4, 0xb9, 0x6e, 0x23, 0x8d, 0xc0, 0x17, 0x5a, 0x06, 0x4b, 0x9c, 0xd1, 0x7f, 0x32, 0xe5, 0xa8
 };
 
+/*************************************/
+		/*	Functions */
+/*************************************/
+/*	Establish connection with Lidar
+	Return FileDescriptor in success, -1 on error
+*/
 int	f_connectLidar(void);
 
+/*	Setup parameters of connection
+*/
 void f_configPort(int lidarFileDescriptor);
 
+/*	Searches Frame header and ver_len 
+	Return 0 in success, -1 on error
+*/
 int	f_searchFrame(int lidarFileDescriptor, uint8_t* b0, uint8_t* b1);
 
+/*	Reads all the Frame
+	Return 0 in success, -1 on error
+*/
 int f_readPort(int lidarFileDescriptor, LiDARFrameTypeDef* frame);
 
+/*	Calculates de CRC
+	Return de CRC
+*/
 uint8_t f_calCRC8(uint8_t *p, uint8_t len);
 
+/*	Checks if data is valid
+	Returns 0 if valid, -1 if not
+*/
 int f_validateData(LiDARFrameTypeDef* frame);
-
-void f_printPoints(LiDARFrameTypeDef* frame);
