@@ -1,40 +1,86 @@
 #pragma once
 
-/*	Libraries*/
-/*	Used to change File Descriptor properties
+/*************************************/
+			/* Libraries */
+/*************************************/
+/*	Used for:
+	Constants:
+	- F_SETFL		Set file status flags
+	- O_NONBLOCK	Never block on execution
+
+	Functions:
+	- fcntl()		Perform indicated operations on file.
 */
 #include <fcntl.h>
 
-/*	Used if user wants to ignore SIGPIPE signal
+/*	Used for:
+	Constants:
+	- SIGPIPE		Write on a pipe with no one to read it
+	- SIG_IGN		Ignore signal
+
+	Functions:
+	- signal()		Modify indicated signal properties.
 */
 #include <signal.h>
 
-/*	Used for managing sockets
+/*	Used for:
+	Constants:
+	- AF_UNIX			UNIX domain sockets
+	- SOCK_SEQPACKET	Sequenced-Packet
+
+	Functions:
+	- socket()			Create socket File Descriptor
+	- bind()			Assign socket File Descriptor to address
+	- listen()			Set number of connections
 */
 #include <sys/socket.h>
 
-/*	Used to define de UDS socket
+/*	Used for:
+	Structure:
+	- sockaddr_un		UDS socket address
 */
 #include <sys/un.h>
 
-/*	Used to create directory if doesn't exist
+/*	Used for:
+	Function:
+	- mkdir()			Create a directory with permissions
 */
 #include <sys/stat.h>
 
-/*	Used for system calls: write, read... and usleep(us)
+/*	Used for:
+	Functions:
+	- unlink()			Remove file
+	- close()			Deallocate File Descriptor
+	- write()			Write bytes to File Descriptor
 */
 #include <unistd.h>
 
-/*	Basic implementation of print, printError, strlen and strcpy
+/*	Used for:
+	Functions:
+	- f_printError()	Prints to STDERR
+	- f_strCpy()		Copy one char[] to another
+	- f_strLen()		Returns length of char[]
 */
 #include "myFunctions.h"
 
-/*	Configurable parameters */
+/*************************************/
+	/* Configurable parameters */
+/*************************************/
+/*	Max number of clients in UDS
+*/
 #define MAX_CLIENTS	2
+
+/*	Directory where UDS will be created
+*/
 #define UDS_DIR		"/tmp/my_uds"
+
+/*	Path where UDS will be created
+*/
 #define UDS_PATH	"/tmp/my_uds/uds0"
 
-/*	Functions */
+/*************************************/
+		/*	Functions */
+/*************************************/
 /*	Creates the UDS socket with the params from udsServer.h
 	Return FileDescriptor in success, -1 on error
 */

@@ -13,9 +13,9 @@ int f_createUDS(void)
 	(void)mkdir(UDS_DIR, 0700);
 	(void)unlink(UDS_PATH);
 
-	/* Create socket File Descriptor
+	/* Create socket FileDescriptor
 	*/
-	socketFileDescriptor = socket(AF_UNIX, SOCK_STREAM, 0);
+	socketFileDescriptor = socket(AF_UNIX, SOCK_SEQPACKET, 0);
 
 	if (socketFileDescriptor == -1)
 	{

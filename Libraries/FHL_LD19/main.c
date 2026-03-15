@@ -14,7 +14,7 @@ int main(void)
 	{
 		/*	Connect to lidar, if can't connect delay of 250ms and retry
 		*/
-		lidarFileDescriptor = f_connectLidar();
+		lidarFileDescriptor = f_connectLidar("/dev/ttyUSB0");
 		if (lidarFileDescriptor == -1)
 		{
 			usleep(250000);
@@ -41,8 +41,6 @@ int main(void)
 
 			if (f_validateData(&frame) == -1)
 				continue;
-	 
-			f_printPoints(&frame);
 		}
 	}
 }
