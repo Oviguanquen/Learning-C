@@ -1,6 +1,6 @@
 #include "../include/udsServer.h"
 
-int f_createUDS(void)
+int f_createUDS(char* dirPath, char* filePath, int maxClients)
 {
 	/* Used Variables */
 	struct sockaddr_un	unixDomainSocket		= {0};
@@ -10,8 +10,8 @@ int f_createUDS(void)
 
 	/* Create directory and purge previous file
 	*/
-	(void)mkdir(UDS_DIR, 0700);
-	(void)unlink(UDS_PATH);
+	(void)mkdir(dirPath, 0700);
+	(void)unlink(filePath);
 
 	/* Create socket FileDescriptor
 	*/
@@ -26,7 +26,7 @@ int f_createUDS(void)
 	/* Configure UDS
 	*/
 	unixDomainSocket.sun_family = AF_UNIX;
-	(void)f_strCpy(UDS_PATH, unixDomainSocket.sun_path, sizeof(unixDomainSocket.sun_path) - 1);
+	(void)f_strCpy(filePath, unixDomainSocket.sun_path, sizeof(unixDomainSocket.sun_path) - 1);
 
 	/* Assign socket address
 	*/
@@ -39,7 +39,7 @@ int f_createUDS(void)
 
 	/* Start listening
 	*/
-	if (listen(socketFileDescriptor, MAX_CLIENTS) == -1)
+	if (listen(socketFileDescriptor, maxClients) == -1)
 	{
 		f_printError("Listen - Error");
 		(void)close(socketFileDescriptor);
@@ -53,7 +53,7 @@ int f_createUDS(void)
 	return socketFileDescriptor;
 }
 
-unsigned int f_acceptClient(int socketFileDescriptor, int* clientsFileDescriptors, unsigned int actualClients)
+int f_acceptClient(int socketFileDescriptor, int* clientsFileDescriptors, int actualClients, int maxClients)
 {
 	/* Used Variables */
 	int	clientFileDescriptor	= 0;
@@ -68,7 +68,7 @@ unsigned int f_acceptClient(int socketFileDescriptor, int* clientsFileDescriptor
 	*/
 	if (clientFileDescriptor != -1)
 	{
-		if (actualClients < MAX_CLIENTS)
+		if (actualClients < maxClients)
 		{
 			clientsFileDescriptors[actualClients] = clientFileDescriptor;
 			actualClients++;
@@ -80,11 +80,11 @@ unsigned int f_acceptClient(int socketFileDescriptor, int* clientsFileDescriptor
 	return actualClients;
 }
 
-unsigned int f_publishMessage(int* clientsFileDescriptors, unsigned int actualClients, char* msg)
+int f_publishMessage(int* clientsFileDescriptors, int actualClients, char* msg)
 {
 	/* Send the msg to each client
 	*/
-	for (unsigned int i = 0; i < actualClients; i++)
+	for (int i = 0; i < actualClients; i++)
 	{
 		/* The client is disconnected
 		*/

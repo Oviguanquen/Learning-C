@@ -1,4 +1,4 @@
-#include "../include/FHL-LD19.h"
+#include "../include/fhl_ld19.h"
 
 int	f_connectLidar(char* pathToLidar)
 {
@@ -65,9 +65,9 @@ int	f_searchFrame(int lidarFileDescriptor, uint8_t* b0, uint8_t* b1)
 
 int f_readPort(int lidarFileDescriptor, LiDARFrameTypeDef* frame)
 {
-	uint8_t* 			p_frame;
-	int					bytesRead;
-	unsigned int		bytesRemaining;
+	uint8_t*			p_frame;
+	long				bytesRead;
+	long		bytesRemaining;
 
 	p_frame						= (uint8_t*) frame;
 	p_frame 					= p_frame + 2;	/* We already know 2 bytes */
@@ -75,7 +75,7 @@ int f_readPort(int lidarFileDescriptor, LiDARFrameTypeDef* frame)
 	
 	while (bytesRemaining > 0)
 	{
-		bytesRead	= read(lidarFileDescriptor, p_frame, bytesRemaining);
+		bytesRead	= read(lidarFileDescriptor, p_frame, (unsigned long)bytesRemaining);
 		
 		if (bytesRead <= 0)
 		{

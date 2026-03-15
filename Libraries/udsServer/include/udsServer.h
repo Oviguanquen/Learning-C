@@ -64,38 +64,23 @@
 #include "myFunctions.h"
 
 /*************************************/
-	/* Configurable parameters */
-/*************************************/
-/*	Max number of clients in UDS
-*/
-#define MAX_CLIENTS	2
-
-/*	Directory where UDS will be created
-*/
-#define UDS_DIR		"/tmp/my_uds"
-
-/*	Path where UDS will be created
-*/
-#define UDS_PATH	"/tmp/my_uds/uds0"
-
-/*************************************/
 		/*	Functions */
 /*************************************/
 /*	Creates the UDS socket with the params from udsServer.h
 	Return FileDescriptor in success, -1 on error
 */
-int				f_createUDS(void);
+int f_createUDS(char* dirPath, char* filePath, int maxClients);
 
 /*	Accepts new clients that subscribe to the UDS
 	Return the number of actual clients
 */
-unsigned int	f_acceptClient(int socketFileDescriptor, int* clientsFileDescriptors, unsigned int actualClients);
+int f_acceptClient(int socketFileDescriptor, int* clientsFileDescriptors, int actualClients, int maxClients);
 
 /*	Publishes the msg to all Clients and updates if any client disconnected
 	Return the number of actual clients
 */
-unsigned int	f_publishMessage(int* clientsFileDescriptors, unsigned int actualClients, char* msg);
+int f_publishMessage(int* clientsFileDescriptors, int actualClients, char* msg);
 
 /* Ignore the signal SIGPIPE(Write on pipe with no one to read it)
 */
-void			f_ignoreDisconnections(void);
+void f_ignoreDisconnections(void);

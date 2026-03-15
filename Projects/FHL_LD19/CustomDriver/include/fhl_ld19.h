@@ -69,11 +69,11 @@
 /*************************************/
 /*	Minimum difference angle between points
 */
-#define MIN_DELTA_ANGLE	0.5f
+#define MIN_DELTA_ANGLE	0.0f
 
 /*	Maximum difference angle between points
 */
-#define MAX_DELTA_ANGLE	12.0f
+#define MAX_DELTA_ANGLE	15.0f
 
 /*************************************/
 		/* Structures */
