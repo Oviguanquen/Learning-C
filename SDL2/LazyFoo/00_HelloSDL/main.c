@@ -1,5 +1,5 @@
 #include <SDL2/SDL.h>
-#include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
 
 const int SCREEN_WIDTH = 640;
@@ -31,13 +31,13 @@ int main(void)
 			/*	Prevent window from closing
 			*/
 			SDL_Event e;
-			bool quit = false;
-			while (quit == false)
+			uint8_t quit = 0;
+			while (quit == 0)
 			{
 				while (SDL_PollEvent(&e))
 				{
 					if (e.type == SDL_QUIT)
-						quit = true;
+						quit = 1;
 				}
 			}
 		}
