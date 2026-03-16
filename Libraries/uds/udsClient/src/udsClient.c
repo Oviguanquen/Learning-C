@@ -1,4 +1,5 @@
 #include "../include/udsClient.h"
+#include <sys/types.h>
 
 int f_connectToUDS(const char* path)
 {
@@ -25,11 +26,11 @@ int f_connectToUDS(const char* path)
 	return socketFileDescriptor;
 }
 
-int f_receiveFromUDS(int socketFileDescriptor, char* buffer, int bufferSize)
+ssize_t f_receiveFromUDS(int socketFileDescriptor, char* buffer)
 {
-	int		receiveStatus;
+	ssize_t		receiveStatus;
 
-	receiveStatus = (int)recv(socketFileDescriptor, buffer, (unsigned int)bufferSize, MSG_DONTWAIT);
+	receiveStatus = (int)recv(socketFileDescriptor, buffer, sizeof(buffer), 0);
 
 	if (receiveStatus < 0)
 	{

@@ -4,7 +4,7 @@ int main (int argc, char* argv[])
 {
 	char* 				path;
 	char				buffer[4096];
-	int					receiveStatus;
+	long				receiveLength;
 	int					socketFileDescriptor;
 
 	if (argc < 2)
@@ -25,9 +25,10 @@ int main (int argc, char* argv[])
 
 		while (1)
 		{
-			receiveStatus = f_receiveFromUDS(socketFileDescriptor, buffer, (int)sizeof(buffer));
+			memset(buffer, 0, sizeof(buffer));
+			receiveLength = f_receiveFromUDS(socketFileDescriptor, buffer);
 
-			if (receiveStatus <= 0)
+			if (receiveLength <= 0)
 				break;
 
 			printf("%s\n", buffer);
