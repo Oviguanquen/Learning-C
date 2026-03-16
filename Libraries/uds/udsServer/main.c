@@ -19,8 +19,6 @@ int main()
 		actualClients = f_acceptClient(socketFileDescriptor, clientsFileDescriptors, actualClients, MAX_CLIENTS);
 
 		actualClients = f_publishMessage(clientsFileDescriptors, actualClients, "Hey\n");
-
-		// usleep(1000);	/* 1 ms */
 	}
 	
 	return 0;
