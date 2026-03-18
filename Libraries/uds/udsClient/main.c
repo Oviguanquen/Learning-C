@@ -1,14 +1,16 @@
 #include "include/udsClient.h"
 
+#define UDS_PATH "/tmp/uds/uds0"
+
 int main (int argc, char* argv[])
 {
 	char* 				path;
 	char				buffer[4096];
-	long				receiveLength;
+	ssize_t				receiveLength;
 	int					socketFileDescriptor;
 
 	if (argc < 2)
-		path = "/tmp/uds/lidar";
+		path = UDS_PATH;
 
 	else
 		path = argv[1];
@@ -26,7 +28,7 @@ int main (int argc, char* argv[])
 		while (1)
 		{
 			memset(buffer, 0, sizeof(buffer));
-			receiveLength = f_receiveFromUDS(socketFileDescriptor, buffer);
+			receiveLength = f_receiveFromUDS(socketFileDescriptor, buffer, sizeof(buffer) - 1);
 
 			if (receiveLength <= 0)
 				break;

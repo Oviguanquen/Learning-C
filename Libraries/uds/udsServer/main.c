@@ -9,6 +9,7 @@ int main()
 	int				socketFileDescriptor;
 	int				clientsFileDescriptors[MAX_CLIENTS] = {0};
 	int				actualClients = 0;
+	char			msg[] = "Hey\n";
 
 	f_ignoreDisconnections();
 
@@ -18,7 +19,7 @@ int main()
 	{
 		actualClients = f_acceptClient(socketFileDescriptor, clientsFileDescriptors, actualClients, MAX_CLIENTS);
 
-		actualClients = f_publishMessage(clientsFileDescriptors, actualClients, "Hey\n");
+		actualClients = f_publishMessage(clientsFileDescriptors, actualClients, msg, sizeof(msg) - 1);
 	}
 	
 	return 0;

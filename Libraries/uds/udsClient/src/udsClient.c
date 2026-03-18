@@ -1,4 +1,5 @@
 #include "../include/udsClient.h"
+#include <stdio.h>
 #include <sys/types.h>
 
 int f_connectToUDS(const char* path)
@@ -26,11 +27,11 @@ int f_connectToUDS(const char* path)
 	return socketFileDescriptor;
 }
 
-ssize_t f_receiveFromUDS(int socketFileDescriptor, char* buffer)
+ssize_t f_receiveFromUDS(int socketFileDescriptor, void* buffer, size_t bufferSize)
 {
 	ssize_t		receiveStatus;
 
-	receiveStatus = (int)recv(socketFileDescriptor, buffer, sizeof(buffer), 0);
+	receiveStatus = recv(socketFileDescriptor, buffer, bufferSize, 0);
 
 	if (receiveStatus < 0)
 	{
@@ -40,7 +41,7 @@ ssize_t f_receiveFromUDS(int socketFileDescriptor, char* buffer)
 
 	if (receiveStatus == 0)
 	{
-		printf("[INFO] Server Closed Conexion\n");
+		printf("[INFO] Server Closed Connection\n");
 		return 0;
 	}
 	

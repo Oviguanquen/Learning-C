@@ -42,6 +42,7 @@ int f_createUDS(char* dirPath, char* filePath, int maxClients)
 	if (listen(socketFileDescriptor, maxClients) == -1)
 	{
 		f_printError("Listen - Error");
+		(void)unlink(filePath);
 		(void)close(socketFileDescriptor);
 		return -1;
 	}
@@ -56,7 +57,7 @@ int f_createUDS(char* dirPath, char* filePath, int maxClients)
 int f_acceptClient(int socketFileDescriptor, int* clientsFileDescriptors, int actualClients, int maxClients)
 {
 	/* Used Variables */
-	int	clientFileDescriptor	= 0;
+	int	clientFileDescriptor;
 
 	/*---------------------------------------------------*/
 
@@ -80,20 +81,32 @@ int f_acceptClient(int socketFileDescriptor, int* clientsFileDescriptors, int ac
 	return actualClients;
 }
 
-int f_publishMessage(int* clientsFileDescriptors, int actualClients, char* msg)
+int f_publishMessage(int* clientsFileDescriptors, int actualClients, void* msg, size_t msgSize)
 {
+	size_t	msgSent;
+	ssize_t	msgWrite;
+
 	/* Send the msg to each client
 	*/
 	for (int i = 0; i < actualClients; i++)
 	{
-		/* The client is disconnected
-		*/
-		if (write(clientsFileDescriptors[i], msg, f_strLen(msg)) == -1)
+		msgSent			= 0;
+
+		while (msgSent < msgSize)
 		{
-			(void)close(clientsFileDescriptors[i]);
-			actualClients--;
-			clientsFileDescriptors[i] = clientsFileDescriptors[actualClients];
-			i--;
+			msgWrite = write(clientsFileDescriptors[i], (char*)msg + msgSent, msgSize - msgSent);
+
+			/* The client is disconnected
+			*/
+			if (msgWrite == -1)
+			{
+				msgSent += (size_t)msgWrite;
+				(void)close(clientsFileDescriptors[i]);
+				actualClients--;
+				clientsFileDescriptors[i] = clientsFileDescriptors[actualClients];
+				i--;
+				break;
+			}
 		}
 	}
 

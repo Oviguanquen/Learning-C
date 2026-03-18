@@ -79,7 +79,7 @@ int f_acceptClient(int socketFileDescriptor, int* clientsFileDescriptors, int ac
 /*	Publishes the msg to all Clients and updates if any client disconnected
 	Return the number of actual clients
 */
-int f_publishMessage(int* clientsFileDescriptors, int actualClients, char* msg);
+int f_publishMessage(int* clientsFileDescriptors, int actualClients, void* msg, size_t msgSize);
 
 /* Ignore the signal SIGPIPE(Write on pipe with no one to read it)
 */

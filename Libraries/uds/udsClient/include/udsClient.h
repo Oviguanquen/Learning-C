@@ -55,4 +55,4 @@ int f_connectToUDS(const char* path);
 /*	Receives data from socket and stores it in buffer
 	Return Bytes received in success, -1 in error, 0 in Server Closed Conexion
 */
-ssize_t f_receiveFromUDS(int socketFileDescriptor, char* buffer);
+ssize_t f_receiveFromUDS(int socketFileDescriptor, void* buffer, size_t bufferSize);
